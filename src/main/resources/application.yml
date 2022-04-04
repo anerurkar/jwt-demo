@@ -1,0 +1,8 @@
+server:
+  port: 9092
+  servlet:
+   context-path: /api
+
+
+jwt:
+  secret: secretkey123
