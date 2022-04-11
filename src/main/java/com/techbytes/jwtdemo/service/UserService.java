@@ -5,11 +5,14 @@ package com.techbytes.jwtdemo.service;
 
 import java.util.ArrayList;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import com.techbytes.jwtdemo.repository.UserRepository;
 
 /**
  * @author andyn
@@ -17,7 +20,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserService implements UserDetailsService {
-
+	 @Autowired
+	    private UserRepository repository;
 	/**
 	 * 
 	 */
@@ -37,7 +41,10 @@ public class UserService implements UserDetailsService {
 		/*
 		 * currently we are hardcoding the user as below
 		 */
-		return new User("admin","password",new ArrayList());
+		//return new User("admin","password",new ArrayList());
+		com.techbytes.jwtdemo.model.User user=repository.findByUserName(username);
+		
+		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), new ArrayList<>());
 	}
 
 }
